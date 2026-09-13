@@ -15,6 +15,9 @@
   
   --soft-green: #e4ecfc;
   --green: #e4ecfc;
+  
+  --soft-red: ##f8a8a8;
+  --red: red;
 }
 
 * {
@@ -33,6 +36,10 @@ img {
 ul, ol {
   list-style: none;
 }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 16px;
@@ -43,10 +50,47 @@ body {
 }
 
 .container {
-  max-width: 1440px;
   width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1rem;
+}
+
+/*SIDEBAR*/
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-color: var(--soft-white2);
+  padding: 1rem 0 2rem 0;
+  
+}
+.sidebar-container .nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-container .nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.sidebar-btns {
+  display: flex;
+  align-items: center;
+}
+.hamburger {
+  display: none;
+}
+.close-btn {
+  display: none;
+}
+.sidebar-btns img {
+  width: 40px;
 }
 
 /*Header*/
@@ -118,7 +162,9 @@ body {
 
 /*Hero*/
 .hero {
-  /*background-color: var(--white);*/
+  position: relative;
+}
+.hero-img {
   background-image: url("../images/hero3.png");
   background-size: cover;
   background-position: top 0px;
@@ -127,7 +173,9 @@ body {
   height: 280px;
 }
 .hero-content-wrapper {
-  padding: 50px 0 0 1.5rem;
+  position: absolute;
+  top: 0;
+  padding: 30px 0 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -191,8 +239,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1rem;
   padding: 20px 0;
-  align-items: center;
-  justify-content: center;
 }
 .icon-div {
   width: 140px;
@@ -215,6 +261,9 @@ body {
   text-align: center;
   font-size: 0.8rem;
   width: 90%;
+}
+.icon-div .text-graduate {
+  font-size: 0.7rem;
 }
 
 /*Opportunities*/
@@ -250,17 +299,21 @@ body {
   font-weight: 0.9rem;
   font-size: 0.9rem;
   text-align: center;
-  padding: 5px 5px;
+  padding: 5px 1rem;
   font-weight: 600;
-  width: 100px;
+  width: 100% auto;
+  background-color: var(--soft-blue);
+  color: var(--primary);
+  display: flex;
+  flex-wrap: wrap;
 }
 .opportunity-type.internship, .opportunity-type.job {
   background-color: var(--soft-blue);
   color: var(--primary);
 }
-.opportunity-type.graduate {
+.opportunity-type.graduate_programmes {
   background-color: var(--soft-purple);
-  color: var(--purple);
+  color: var(--dark);
 }
 .opportunity-type.bursary {
   background-color: var(--soft-white);
@@ -268,11 +321,11 @@ body {
 }
 .opportunity-type.scholarship {
   background-color: var(--soft-green);
-  color: var(--green);
+  color: var(--dark);
 }
 .opportunity-type.learnership {
   background-color: var(--soft-green);
-  color: var(--green);
+  color: var(--dark);
 }
 .opportunity-title {
   font-weight: 700;
@@ -369,7 +422,7 @@ body {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  width: 600px;
+  max-width: 600px;
 }
 .search-form .icon {
   width: 50px;
@@ -419,4 +472,157 @@ body {
 }
 .chip.graduate {
   white-space: nowrap;
+}
+.chip.null {
+  border-color: var(--red);
+  color: var(--red);
+}
+/*///////////////////////////////////*/
+
+@media (max-width: 450px){
+  /*HEADER*/
+  .header {
+    padding: 0.5rem 0;
+  }
+  /*SIDEBAR*/
+  .sidebar-container{
+    display: flex;
+  }
+  .sidebar-btns {
+    display: flex;
+  }
+  .hamburger {
+    display: block;
+  }
+  .close-btn {
+    display: block;
+  }
+.logo-wrapper {
+  margin-right: 50px;
+}
+.logo {
+  width: 150px;
+}
+.nav-links {
+  display: none;
+}
+.nav-buttons {
+  display: none;
+}
+
+.btn a {
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+.btn.signup a {
+  border: 1.5px solid var(--primary);
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+}
+.btn.signup a:hover {
+  opacity: 0.6;
+}
+
+/*Hero*/
+.hero-img {
+  display: block;
+  background-image: url("../images/hero2.png");
+  background-size: cover;
+  background-position: top 0px left -250px;
+  background-repeat: no-repeat;
+  position: relative;
+  height: 400px;
+  z-index: -1;
+}
+.hero-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.850);
+  z-index: -1;
+}
+.hero-content-wrapper {
+  padding: 30px 1rem;
+  position: absolute;
+  top: 0;
+}
+.hero-text-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+}
+.text {
+  color: var(--white);
+  line-height: 1.5;
+  font-weight: 500;
+}
+.heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--white);
+}
+.heading strong {
+  color: var(--white);
+}
+
+/*hero form*/
+.hero-form {
+  margin-top: 2rem;
+}
+
+/*Icons*/
+.icons {
+  padding: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/*OPPORTUNITIES PAGE*/
+/*search form*/
+.search-form {
+  max-width: 500px;
+}
+
+/*opportunities chips*/
+.opportunities-chips {
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+.chip {
+  display: inline-block;
+  font-size: 0.9rem;
+  background-color: var(--white);
+  border-radius: 100vmax;
+  outline: none;
+  border: 2px solid var(--border);
+  padding: 0.2rem 0.5rem;
+}
+.chip.selected {
+  border: 2px solid var(--primary);
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 100vmax;
+  padding: 0.2rem 0.5rem;
+}
+.chip.graduate {
+  white-space: wrap;
+}
 }

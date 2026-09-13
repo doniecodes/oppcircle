@@ -42,6 +42,9 @@ CREATE TABLE opportunities (
     company_id UUID NOT NULL
     REFERENCES companies(id)
     ON DELETE CASCADE,
+    location_id UUID NOT NULL
+    REFERENCES locations(id)
+    ON DELETE SET NULL,
     title VARCHAR(255) NOT NULL,
     slug VARCHAR(300) UNIQUE NOT NULL,
     summary VARCHAR(500),

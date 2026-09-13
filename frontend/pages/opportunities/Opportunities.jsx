@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams, useLoaderData } from 'react-router-dom';
 import Opportunity from "../../components/Opportunity";
 import { FaSearch } from "react-icons/fa";
+import OpportunitiesHook from "../../hooks/OpportunitiesHook";
+import { getOpportunities } from "../../services/opportunitiesApi";
 
+export const loader = async ({request})=> {
+  const data = await getOpportunities();
+  return data;
+}
 
 const Opportunities = ({isHome}) => {
   
@@ -12,6 +17,12 @@ const Opportunities = ({isHome}) => {
   const [ searchParams, setSearchParams ] = useSearchParams();
   
   const typeFilter = searchParams.get("type");
+  
+  //loader data
+  const data = useLoaderData();
+  const opportunities = data?.opportunities;
+  //opportunities to display
+  //const filteredOpportunities = typeFilter !== null && 
   
   //handle filter change
   const handleFilterChange = (key, value)=> {
@@ -40,7 +51,7 @@ const Opportunities = ({isHome}) => {
         <FaSearch className="icon" />
         <input
         type="text"
-        placeholder="Search for internships, jobs, scholarships..."
+        placeholder="Search for opportunities..."
         value={term}
         onChange={(e)=> setTerm(e.target.value)}
         />
@@ -71,15 +82,20 @@ const Opportunities = ({isHome}) => {
         <button onClick={()=> handleFilterChange('type','learnerships')}
         className={`chip ${typeFilter === 'learnerships' && 'selected'}`}>Learnerships
         </button>
+        <button onClick={()=> handleFilterChange('type', null)}
+        className={`chip null`}>Clear Filters
+        </button>
       </div>
       
       <section className="opportunities-section">
         <div className="opportunities">
-          <Opportunity />
-          <Opportunity />
-          <Opportunity />
-          <Opportunity />
-          <Opportunity />
+          {opportunities.length > 0 && opportunities.map((x)=> (
+            <Opportunity
+            key={x.id}
+            opportunity={x}
+            />
+          ))
+          }
         </div>
       </section>
       

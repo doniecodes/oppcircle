@@ -1,18 +1,30 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 import Icons from "../components/Icons";
 import Opportunities from "./opportunities/Opportunities";
-import OpportunityHome from "../components/OpportunityHome";
+import OpportunityFeatured from "../components/OpportunityFeatured";
 
 import { FaSearch } from "react-icons/fa";
 import HeroImage from "../images/hero3.png";
+
+import { getOpportunitiesFeatured } from "../services/opportunitiesApi";
+
+
+export const loader = async ()=> {
+  const data = await getOpportunitiesFeatured();
+  return data;
+}
 
 const Home = () => {
   
   //states
   const [ term, setTerm ] = useState("");
+  
+  //opportunities
+  const data = useLoaderData();
+  const opportunities = data?.opportunities;
   
   const handleSearch = async (e)=> {
     e.preventDefault();
@@ -22,6 +34,7 @@ const Home = () => {
   return (
     <>
     <section className="hero">
+    <div className="hero-img"></div>
       <div className="hero-content-wrapper">
         
         <div className="hero-text-wrapper">
@@ -36,7 +49,7 @@ const Home = () => {
             <FaSearch className="icon" />
             <input
             type="text"
-            placeholder="Search for internships, jobs, scholarships..."
+            placeholder="Search for opportunities..."
             value={term}
             onChange={(e)=> setTerm(e.target.value)}
             />
@@ -65,11 +78,12 @@ const Home = () => {
         </Link>
       </div>
       <div className="featured-opportunities">
-        <OpportunityHome />
-        <OpportunityHome />
-        <OpportunityHome />
-        <OpportunityHome />
-        <OpportunityHome />
+        {opportunities.length > 0 && opportunities.map((x)=> (
+        <OpportunityFeatured
+        key={x.id}
+        opportunity={x}
+        />
+        ))}
       </div>
     </section>
     </div>

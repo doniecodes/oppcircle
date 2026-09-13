@@ -11,32 +11,46 @@ import Discovery from '../images/icons/discovery.jpg';
 import PinIcon from '../images/icons/pin.png';
 
 
-const Opportunity = ({id, title, icon, location}) => {
+const Opportunity = ({opportunity}) => {
+  
+  //date
+  const formattedDate = new Date(opportunity.closing_date)
+  .toLocaleDateString("en-ZA", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+  
+  //type
+  const formattedType =
+  opportunity.type.charAt(0).toUpperCase() + opportunity.type.slice(1);
+
+  
   return (
     <>
-    <Link to={`/opportunities/${id}`}
+    <Link to={`/opportunities/${opportunity.id}`}
     className="opportunity">
       
       <div className="opportunity-header">
-        <img src={Discovery}
+        <img src={opportunity.logo_url}
         className="company-icon" />
-        <p className="opportunity-type internship">
-          Internship
+        <p className={`opportunity-type ${opportunity.type}`}>
+          {formattedType}
         </p>
       </div>
       
       <h3 className="opportunity-title">
-        Software Development Internship
+        {opportunity.title}
       </h3>
       
       <div className="opportunity-info">
         <div className="company-name">
           <img src={NameIcon} />
-          <p>Discovery Bank</p>
+          <p>{opportunity.name}</p>
         </div>
         <div className="company-location">
           <img src={LocationIcon} />
-          <p>Cape Town, WC</p>
+          <p>{`${opportunity.city}, ${opportunity.province}`}</p>
         </div>
         {/*div className="company-location-type">
           <img src={PinIcon} />
@@ -44,12 +58,12 @@ const Opportunity = ({id, title, icon, location}) => {
         </div>*/}
         <div className="closing-date">
           <img src={TimeIcon} />
-          <p>Deadline: <span>15 Oct 2026</span></p>
+          <p>Deadline: <span>{formattedDate}</span></p>
         </div>
       </div>
       
       <span className="arrow-btn"
-      to={`/opportunities/${id}`}>
+      to={`/opportunities/${opportunity.id}`}>
         <img src={ArrowWhite} />
       </span>
       

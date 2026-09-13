@@ -18,10 +18,6 @@ const Icons = () => {
       <img src={Tie}/>
       <h3>Jobs</h3>
     </div>
-    {/*<div className="icon-div">
-      <img src={Graduate} className="icon-graduate"/>
-      <h3>Graduate Programmes</h3>
-    </div> */}
     <div className="icon-div">
       <img src={Coins}/>
       <h3>Bursaries</h3>
@@ -33,6 +29,10 @@ const Icons = () => {
     <div className="icon-div">
       <img src={File}/>
       <h3>Learnerships</h3>
+    </div>
+    <div className="icon-div">
+      <img src={Graduate} className="icon-graduate"/>
+      <h3 className="text-graduate">Graduate Programmes</h3>
     </div>
   </section>
   )

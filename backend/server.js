@@ -26,4 +26,4 @@ pool.connect()
 });
 
 //opportunities routes
-app.use("/opportunities", opportunitiesRoutes);
+app.use("/api/opportunities", opportunitiesRoutes);
