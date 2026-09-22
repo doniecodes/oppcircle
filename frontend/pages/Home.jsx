@@ -24,7 +24,7 @@ const Home = () => {
   
   //opportunities
   const data = useLoaderData();
-  const opportunities = data?.opportunities;
+  const opportunities = data.opportunities;
   
   const handleSearch = async (e)=> {
     e.preventDefault();

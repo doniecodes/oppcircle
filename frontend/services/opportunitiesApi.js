@@ -2,11 +2,16 @@
 const URI = import.meta.env.VITE_PUBLIC_URI;
 
 //getOpportunities
-    export const getOpportunities = async ()=> {
-      const res = await fetch(`${URI}/opportunities`);
+    export const getOpportunities = async (search)=> {
+      const urlString = search ? `${URI}/opportunities?${search}`: `${URI}/opportunities`;
+      const res = await fetch(urlString);
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error);
+        throw {
+          message: data.error,
+          statusText: res.statusText,
+          status: res.status
+        }
       }
       return data;
     }
@@ -16,8 +21,61 @@ const URI = import.meta.env.VITE_PUBLIC_URI;
       const res = await fetch(`${URI}/opportunities/featured`);
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error);
+        throw {
+          message: data.error,
+          statusText: res.statusText,
+          status: res.status
+        }
       }
       return data;
     }
     
+  //get opportunity
+    export const getOpportunity = async (id)=> {
+      const res = await fetch(`${URI}/opportunities/${id}`);
+      const data = await res.json();
+      if (!res.ok) {
+        throw {
+          message: data.error,
+          statusText: res.statusText,
+          status: res.status
+        }
+      }
+      return data;
+    }
+    
+  //create user personal
+    export const createUserPersonal = async (email, password)=> {
+      const res = await fetch(`${URI}/user/signup/personal`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({email, password})
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw {
+          message: data.error,
+          statusText: res.statusText,
+          status: res.status
+        }
+      }
+      return data;
+    }
+    
+  //create user organization
+    export const createUserOrganization = async (name, companyEmail, website, industry, country, password)=> {
+      const res = await fetch(`${URI}/user/signup/organization`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({name, companyEmail, website, industry, country, password})
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw {
+          message: data.error,
+          statusText: res.statusText,
+          status: res.status
+        }
+      }
+      return data;
+    }

@@ -8,7 +8,11 @@ import NotFoundPage from '../pages/NotFoundPage';
 import MainOutlet from '../pages/MainOutlet';
 import Home, { loader as homeLoader } from '../pages/Home';
 import Opportunities, { loader as opportunitiesLoader } from '../pages/opportunities/Opportunities';
-import OpportunityDetails, { loader as opportunityDetailsLoader } from '../pages/opportunities/OpportunityDetails';
+import OpportunityDetailsLayout, { loader as opportunityDetailsLoader } from '../components/OpportunityDetailsLayout';
+import Login, { action as loginAction } from '../pages/Login';
+import Signup, { action as signupAction } from '../pages/Signup';
+import OpportunityOverview from '../pages/opportunities/OpportunityOverview';
+import OpportunityCompany from '../pages/opportunities/OpportunityCompany';
 import RouteError from '../components/RouteError';
 
 const router = createBrowserRouter(
@@ -20,16 +24,28 @@ const router = createBrowserRouter(
       errorElememt={<RouteError/>}
       />
       
-      <Route path="/opportunities"
+      <Route path="opportunities"
       element={<Opportunities />}
       loader={opportunitiesLoader}
       />
       
-      <Route path="/opportunities/:id"
-      element={<OpportunityDetails />}
-      loader={opportunityDetailsLoader}>
-        
+      <Route path="opportunities/:id"
+      element={<OpportunityDetailsLayout />}
+      loader={opportunityDetailsLoader}
+      errorElememt={<RouteError/>}>
+        <Route index element={<OpportunityOverview />} />
+        <Route path="company" element={<OpportunityCompany />} />
       </Route>
+      
+      <Route path="login"
+      element={<Login />}
+      action={loginAction}
+      />
+      
+      <Route path="signup"
+      element={<Signup />}
+      action={signupAction}
+      />
       
       <Route path="*" element={<NotFoundPage/>} />
     </Route>

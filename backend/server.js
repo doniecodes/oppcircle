@@ -3,6 +3,7 @@ require("dotenv").config();
 const cors = require("cors");
 const pool = require("./data/pg");
 const opportunitiesRoutes = require("./routes/opportunitiesRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -27,3 +28,6 @@ pool.connect()
 
 //opportunities routes
 app.use("/api/opportunities", opportunitiesRoutes);
+
+//user routes
+app.use("/api/user", userRoutes);

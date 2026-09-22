@@ -170,6 +170,22 @@ CREATE TABLE opportunity_eligibility (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) UNIQUE,
+    avatar_url TEXT,
+    account_type VARCHAR(20) NOT NULL DEFAULT 'personal'
+    CHECK (account_type IN ('personal', 'organization')),
+    is_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    last_login_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE opportunity_saves (
     user_id UUID NOT NULL
         REFERENCES users(id)

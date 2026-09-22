@@ -38,14 +38,14 @@ const Header = () => {
               </NavLink>
             </li>
             <li className="link">
-              <NavLink to="/jobs"
+              <NavLink to="/opportunities?type=job"
               className={({isActive})=> (
               isActive ? "active" : "" )}>
                 Jobs
               </NavLink>
             </li>
             <li className="link">
-              <NavLink to="/internships"
+              <NavLink to="/opportunities?type=internship"
               className={({isActive})=> (
               isActive ? "active" : "" )}>
                 Internships
@@ -89,6 +89,7 @@ const Header = () => {
         <ul className="nav-links">
           <li className="link">
             <NavLink to="/"
+            onClick={()=> setShow(false)}
               className={({isActive})=> (
               isActive ? "active" : "" )}>
                 Home
@@ -96,20 +97,23 @@ const Header = () => {
           </li>
           <li className="link">
             <NavLink to="/opportunities"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Opportunities
+            onClick={()=> setShow(false)}
+            className={({isActive})=> (
+            isActive ? "active" : "" )}>
+              Opportunities
             </NavLink>
           </li>
           <li className="link">
-            <NavLink to="/jobs"
+            <NavLink to="/opportunities?type=job"
+            onClick={()=> setShow(false)}
               className={({isActive})=> (
               isActive ? "active" : "" )}>
                 Jobs
             </NavLink>
           </li>
           <li className="link">
-            <NavLink to="/internships"
+            <NavLink to="/opportunities?type=internship"
+            onClick={()=> setShow(false)}
               className={({isActive})=> (
               isActive ? "active" : "" )}>
                 Internships
@@ -119,12 +123,16 @@ const Header = () => {
           
           <ul className="nav-buttons">
             <li className="btn">
-              <NavLink to="/login">
+              <NavLink
+              onClick={()=> setShow(false)}
+              to="/login">
                 Login
               </NavLink>
             </li>
             <li className="btn signup">
-              <NavLink to="/signup">
+              <NavLink
+              onClick={()=> setShow(false)}
+              to="/signup">
                 Signup
               </NavLink>
             </li>

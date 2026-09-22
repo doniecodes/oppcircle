@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import ArrowWhite from '../images/icons/arrow-right-white.svg';
 
 //icons
@@ -12,7 +12,7 @@ import PinIcon from '../images/icons/pin.png';
 
 
 const Opportunity = ({opportunity}) => {
-  
+
   //date
   const formattedDate = new Date(opportunity.closing_date)
   .toLocaleDateString("en-ZA", {
@@ -22,13 +22,20 @@ const Opportunity = ({opportunity}) => {
   });
   
   //type
-  const formattedType =
-  opportunity.type.charAt(0).toUpperCase() + opportunity.type.slice(1);
-
+  let formattedType;
+  switch(opportunity.type){
+    case "graduate_programme":
+      formattedType = "Graduate Programme"
+      break;
+      default:
+      formattedType = opportunity.type.charAt(0).toUpperCase() + opportunity.type.slice(1);
+  }
+  
   
   return (
     <>
-    <Link to={`/opportunities/${opportunity.id}`}
+    <Link
+    to={`/opportunities/${opportunity.id}`}
     className="opportunity">
       
       <div className="opportunity-header">
