@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useActionData, Form } from "react-router-dom";
+import { Link, useActionData, Form, redirect } from "react-router-dom";
+import { createUserPersonal, createUserOrganization } from "../services/userApi";
+
 import PersonIcon from "../images/icons/name.png";
-import { createUserPersonal, createUserOrganization } from "../services/opportunitiesApi";
+import EmailIcon from "../images/icons/email.svg";
+import LinkIcon from "../images/icons/link.svg";
+import CircuitIcon from "../images/icons/circuit.svg";
+import LocationIcon from "../images/icons/location2.png";
+import LockIcon from "../images/icons/lock.svg";
+
 
 export const action = async({request})=> {
     const formData = await request.formData();
@@ -21,7 +28,12 @@ export const action = async({request})=> {
       } else {
         data = await createUserOrganization(name, companyEmail, website, industry, country, password);
       }
-      return data;
+      if(type === "personal"){
+        return redirect("/");
+      } else {
+        return redirect("/dashboard");
+      }
+      localStorage.setItem("user", JSON.stringify(data.user));
     } catch (error) {
       return { error: error.message };
     }
@@ -82,11 +94,12 @@ const Signup = () => {
                   Email *
                 </label>
                 <div>
-                <img src={PersonIcon} />
+                <img src={EmailIcon} />
                 <input
                 type="text"
                 id="email"
                 name="email"
+                placeholder="Enter email"
                 />
                 </div>
               </div>
@@ -96,11 +109,12 @@ const Signup = () => {
                   Password *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={LockIcon} />
                   <input
                   type="password"
                   id="password"
                   name="password"
+                  placeholder="Choose password"
                   />
                 </div>
               </div>
@@ -113,7 +127,7 @@ const Signup = () => {
                   Company name *
                 </label>
                 <div>
-                <img src={PersonIcon} />
+                <img src={PersonIcon} className="name-icon" />
                 <input
                 type="text"
                 id="name"
@@ -128,7 +142,7 @@ const Signup = () => {
                   Company email *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={EmailIcon} />
                   <input
                   type="text"
                   id="company-email"
@@ -143,7 +157,7 @@ const Signup = () => {
                   Website *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={LinkIcon} />
                   <input
                   type="text"
                   id="website"
@@ -158,17 +172,15 @@ const Signup = () => {
                   Industry *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={CircuitIcon} />
                   <select
                   name="industry"
                   id="industry">
-                    <option disabled>Select indiustry</option>
+                    <option value="none">Select industry</option>
                     <option value="Accounting">Accounting</option>
                     <option value="Banking">Banking</option>
-                    <option
-                    value="Technology">
-                      Technology
-                    </option>
+                    <option value="Technology">Technology</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
@@ -178,32 +190,31 @@ const Signup = () => {
                   Country *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={LocationIcon} />
                   <select
                   name="country"
                   id="country">
-                    <option disabled>Select country</option>
-                    <option
-                    value="Australia">
-                      Australia
-                      </option>
+                    <option value="none">Select country</option>
+                    <option value="Australia">Australia</option>
                     <option value="Botswana">Botswana</option>
                     <option value="Canada">Canada</option>
                     <option value="South Africa">South Africa</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
               
               <div className="form-group">
                 <label htmlFor="password">
-                  Password*
+                  Password *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={LockIcon} />
                   <input
                   type="password"
                   id="password"
                   name="password"
+                  placeholder="Choose password"
                   />
                 </div>
               </div>

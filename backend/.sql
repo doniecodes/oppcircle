@@ -159,18 +159,7 @@ CREATE TABLE opportunity_eligibility (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
- CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT NULL,
-    full_name VARCHAR(150) NOT NULL,
-    username VARCHAR(50) UNIQUE,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password TEXT,
-    avatar_url TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE TABLE users (
+CREATE TABLE profiles (
     id UUID PRIMARY KEY DEFAULT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password TEXT NOT NULL,
@@ -179,6 +168,7 @@ CREATE TABLE users (
     avatar_url TEXT,
     account_type VARCHAR(20) NOT NULL DEFAULT 'personal'
     CHECK (account_type IN ('personal', 'organization')),
+    company_id UUID REFERENCES companies(id) ON DELETE CASCADE,
     is_verified BOOLEAN NOT NULL DEFAULT FALSE,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     last_login_at TIMESTAMPTZ,

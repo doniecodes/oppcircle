@@ -1,30 +1,45 @@
 import React from 'react';
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useActionData, Form, redirect } from "react-router-dom";
 import PersonIcon from "../images/icons/name.png";
+import { loginUser } from "../services/userApi";
+
+import EmailIcon from "../images/icons/email.svg";
+import LockIcon from "../images/icons/lock.svg";
 
 export const action = async({request})=> {
-  return "123"
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const password = formData.get("password");
+  try {
+    const data = await loginUser(email, password);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    return redirect("/");
+  } catch (error) {
+    return { error: error.message };
+  }
 }
 
 const Login = () => {
   
-  const data = useLoaderData();
+  const actionData = useActionData();
   
   return (
     <>
       <div className="container">
-          <form className="user-form login-form">
+          <Form method="post"
+          className="user-form login-form">
               <h2>Login to your OppCircle account</h2>
               <div className="form-group">
                 <label htmlFor="email">
                   Email *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={EmailIcon} />
                   <input
                   type="email"
                   id="email"
                   name="email"
+                  placeholder="Enter email"
                   />
                 </div>
               </div>
@@ -33,23 +48,32 @@ const Login = () => {
                   Password *
                 </label>
                 <div>
-                  <img src={PersonIcon} />
+                  <img src={LockIcon} />
                   <input
                   type="password"
                   id="password"
                   name="password"
+                  placeholder="Enter password"
                   />
                 </div>
               </div>
-              <button>
-                Login
-              </button>
+              
+              { actionData?.error ?
+                <div className="error-form">
+                  { actionData.error }
+                </div>
+                : null
+              }
+              
+              <button type="submit"> Login </button>
+              
               <p className="link-text">
                 New to OppCircle?
                 <Link to="/signup">Signup
                 </Link>
               </p>
-          </form>
+          </Form>
+          
       </div>
     </>
   )
