@@ -4,6 +4,7 @@ const cors = require("cors");
 const pool = require("./data/pg");
 const opportunitiesRoutes = require("./routes/opportunitiesRoutes");
 const userRoutes = require("./routes/userRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 
@@ -31,3 +32,6 @@ app.use("/api/opportunities", opportunitiesRoutes);
 
 //user routes
 app.use("/api/user", userRoutes);
+
+//dashboard routes
+app.use("/api/dashboard", dashboardRoutes);

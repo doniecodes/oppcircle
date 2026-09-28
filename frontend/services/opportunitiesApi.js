@@ -43,3 +43,17 @@ const URI = import.meta.env.VITE_PUBLIC_URI;
       }
       return data;
     }
+    
+  //Get dashboard oppprtunities
+  export const getDashboardOpportunities = async ()=> {
+    const res = await fetch(`${URI}/dashboard/opportunities`);
+    const data = await res.json()
+    if(!res.ok){
+      throw {
+        message: data.error,
+        statusText: res.statusText,
+        status: res.status
+      }
+    }
+    return data;
+  }

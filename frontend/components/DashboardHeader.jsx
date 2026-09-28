@@ -4,7 +4,7 @@ import LogoImage from "../images/logo5.png";
 import CloseIcon from "../images/icons/close-dark.svg";
 import MenuIcon from "../images/icons/menu3.svg";
 
-const Header = () => {
+const DashboardHeader = () => {
   
   const [ show, setShow ] = useState(false);
   
@@ -23,44 +23,6 @@ const Header = () => {
             />
           </Link>
         </div>
-        
-          <ul className="nav-links">
-            <li className="link">
-              <NavLink to="/"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Home
-              </NavLink>
-            </li>
-            <li className="link">
-              <NavLink to="/opportunities"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Opportunities
-              </NavLink>
-            </li>
-            <li className="link">
-              <NavLink to="/opportunities?type=job"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Jobs
-              </NavLink>
-            </li>
-            <li className="link">
-              <NavLink to="/dashboard"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Dashboard
-              </NavLink>
-            </li>
-            <li className="link">
-              <NavLink to="/dashboard"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Dashboard
-              </NavLink>
-            </li>
-          </ul>
           
           { !user ?
           <>
@@ -163,4 +125,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default DashboardHeader
