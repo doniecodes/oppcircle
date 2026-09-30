@@ -40,7 +40,9 @@ const getOpportunity = async (req, res)=> {
 
 //create opportunity
 const createOpportunity = async (req, res)=> {
+  const { title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions } = req.body;
   
+  console.log(title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions);
 }
 
 //update opportunity
@@ -52,8 +54,6 @@ const updateOpportunity = async (req, res)=> {
 const deleteOpportunity = async (req, res)=> {
   
 }
-
-
 
 
 module.exports = {

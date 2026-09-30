@@ -33,7 +33,7 @@ export const action = async({request})=> {
       } else {
         return redirect("/dashboard");
       }
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("user", JSON.stringify(data));
     } catch (error) {
       return { error: error.message };
     }

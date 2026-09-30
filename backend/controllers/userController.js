@@ -35,10 +35,12 @@ const loginUser = async(req, res)=> {
       return res.status(404).json({error: "Incorrect password, please try again"});
     }
     const token = signToken(user.rows[0].id);
-    res.status(201).json({user: email, token});
+    const name = user.rows[0].full_name;
+    const account_type = user.rows[0].account_type;
+    res.status(201).json({user: email, name, account_type, token});
   } catch (error) {
     console.log(error);
-    res.status(500).json({error: "Colud not log you in, please try again later"})
+    res.status(500).json({error: "Could not log you in, please try again later"})
   }
 }
 
@@ -62,14 +64,17 @@ const signupUserPersonal = async(req, res)=> {
   try {
     const userExists = await pool.query(`SELECT * FROM profiles WHERE email = $1`, [email]);
     if(userExists.rows.length > 0){
-      return res.status(409).json({error: "An account with this email already exists"});
+      return res.status(404).json({error: "An account with this email already exists"});
     }
     const salt = await bcryptjs.genSalt(10);
     const passwordHash = await bcryptjs.hash(password, salt);
     const user = await pool.query(`INSERT INTO profiles(id, account_type, full_name, username, email, password) VALUES($1, $2, $3, $4, $5, $6)`, [id, "personal", full_name, username, email, passwordHash]);
     const token = signToken(id);
-    res.status(201).json({user: email, token});
+    const name = user.rows[0].full_name;
+    const account_type = user.rows[0].account_type;
+    res.status(201).json({user: email, name, account_type, token});
   } catch (error) {
+    console.log(error)
     res.status(500).json({error: "Could not create account, please try again later"});
   }
 }
@@ -101,7 +106,7 @@ const signupUserOrganization = async(req, res)=> {
     //check for user if exists
     const userExists = await pool.query(`SELECT * FROM profiles WHERE email = $1`, [companyEmail]);
     if(userExists.rows.length > 0){
-      return res.status(409).json({error: "An account with this email already exists"});
+      return res.status(404).json({error: "An account with this email already exists"});
     }
     //hash password
     const salt = await bcryptjs.genSalt(10);

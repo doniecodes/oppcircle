@@ -18,6 +18,7 @@
   
   --soft-red: #f4e5e5;
   --red: #c31b1b;
+  --red2: #d95656;
 }
 
 * {
@@ -28,6 +29,10 @@
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
+}
+button {
+  cursor: pointer;
 }
 img {
   max-width: 100%;
@@ -54,6 +59,22 @@ body {
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 1rem;
+}
+
+.route-error-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ justify-content: center;
+ gap: 1rem;
+ margin: 0 auto;
+ height: 50vh;
+ font-size: 2rem;
+  font-weight: 500;
+}
+.route-error-div p span {
+  font-weight: 700;
+  margin-right: 0.5rem;
 }
 
 /*SIDEBAR*/
@@ -878,11 +899,12 @@ body {
 }
 /*// Dashboard Header //*/
 .opportunities-header {
+  width: 100%;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 2rem;
   background-color: var(--soft-white2);
   /*border-bottom: 1.5px solid var(--border);*/
   padding-bottom: 1rem;
@@ -890,7 +912,7 @@ body {
 .opportunities-header-text-wrapper {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 .opportunities-header-text-wrapper img {
   width: 45px;
@@ -904,8 +926,9 @@ body {
   font-weight: normal;
   display: block;
 }
-.opportunities-header button {
-  background-color: var(--primary2);
+.opportunities-header a {
+  background-color: var(--primary);
+  font-size: 1rem;
   color: #fff;
   border: none;
   padding: 1rem;
@@ -943,10 +966,11 @@ button.dashboard-opportunities-chip span {
   padding: 0 1rem;
   width: 100%;
   border: 1.5px solid var(--border);
-  height: 35px;
+  height: 40px;
   border-radius: 100vmax;
 }
 .dashboard-opportunities-form input {
+  font-size: 1rem;
   background-color: none;
   outline: none;
   border: none;
@@ -954,16 +978,17 @@ button.dashboard-opportunities-chip span {
 }
 /*Oppprtunities Table*/
 .opportunities-table-container {
-  /* border: 1.5px solid var(--border);
-  border-radius: 0.6rem;
-  padding: 0.5rem; */
-}
-.opportunities-table {
-  border: 1.5px solid var(--border);
-  border-radius: 0.6rem;
-  margin: 1.5rem 0;
   width: 100%;
   min-width: 1200px;
+  border: 1.5px solid var(--border);
+  border-radius: 0.6rem;
+  margin: 1rem 0;
+  /*padding: 0.5rem;*/ 
+}
+.opportunities-table {
+  /*border: 1.5px solid var(--border);*/
+  border-radius: 0.6rem;
+  width: 100%;
   border-collapse: collapse;
   font-size: 15px;
 }
@@ -974,10 +999,14 @@ thead {
   font-weight: 500;
 }
 thead tr td:first-child {
-  width: 350px;
+  border-top-left-radius: 0.5rem;
+  width: 300px;
+}
+thead tr td:last-child {
+  border-top-left-radius: 0.5rem;
 }
 thead tr td:nth-child(2) {
-  width: 100px;
+  width: 80px;
 }
 thead tr td {
   padding: 0 0.5rem;
@@ -992,11 +1021,12 @@ tbody tr td img {
   width: 100px;
 }
 tbody tr td h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 800;
+  margin-bottom: 0.5rem;
 }
 tbody tr td p {
-  font-size: 15px;
+  font-size: 14px;
   width: 100%;
 }
 .td-with-icon img {
@@ -1014,13 +1044,37 @@ td p.opportunity-type.graduate_programme {
   width: 50%;
   white-space: wrap;
 }
+td p.status {
+  background-color: var(--soft-green);
+  color: var(--green);
+  text-align: center;
+  font-weight: 600;
+  border-radius: 100vmax;
+}
+/*table action btns*/
+.table-action-btns button:first-child {
+  background-color: transparent;
+  border: 1.5px solid var(--primary2);
+  color: var(--primary2);
+  font-weight: 600;
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  margin-right: 1rem;
+}
+.table-action-btns button:last-child {
+  background-color: var(--soft-red);
+  border: 1.5px solid var(--red2);
+  color: var(--red2);
+  border-radius: 0.6rem;
+  padding: 0.4rem;
+}
 /*table footer*/
 .table-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 0.5rem
+  padding: 1rem 2rem
 }
 .table-footer-btns {
   display: flex;
@@ -1041,6 +1095,111 @@ td p.opportunity-type.graduate_programme {
   border-radius: 0.5rem;
   color: #fff;
   padding: 0.5rem 1rem;
+}
+
+/*//////// CREATE OPPORTUNITY //////////////*/
+.create-opportunity-form {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 0.6rem;
+  max-width: 900px;
+}
+.form-group-wrapper {
+  margin-bottom: 0.6rem;
+}
+.form-group-wrapper h3 {
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.form-group-wrapper h3 img {
+  display: none;
+  width: 30px;
+  padding: 0.3rem 0.3rem;
+  border-radius: 50%;
+  /*background-color: var(--soft-blue);*/
+}
+.form-group label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.form-group label span {
+  color: var(--red);
+}
+.form-group-wrapper .form-group input {
+  height: 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0 0.6rem;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+}
+.form-group-wrapper.basic .form-group.type select {
+  height: 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0 0.6rem;
+  font-size: 1rem;
+  outline: none;
+}
+.form-group-wrapper .flex-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.form-group.summary textarea {
+  height: 80px;
+  width: 100% !important;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  outline: none;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  resize: none;
+}
+.form-group.description textarea {
+  height: 120px;
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  outline: none;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  resize:none;
+}
+.form-group p.field-instruction {
+  font-size: 0.9rem;
+}
+/*location, work mode, industry and requirements*/
+.form-group select {
+  height: 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0 0.6rem;
+  font-size: 1rem;
+  outline: none;
+}
+.grid-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+/*CREATE OPPPRTUNITY BUTTON */
+.create-opportunity-form-btn {
+  background-color: var(--primary);
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.6rem 1rem;
 }
 
 /*Dashboard layout and nav*/
@@ -1066,37 +1225,34 @@ td p.opportunity-type.graduate_programme {
   gap: 0.5rem;
 }
 .nav-dashboard-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0 1rem;
+  padding: 0 rem;
 }
-.nav-dashboard-item:hover {
-  background-color: var(--soft-blue);
-}
-.nav-dashboard-item.active {
-  background-color: var(--soft-blue);
-}
-.nav-dashboard-item img {
+.nav-dashboard-item a img {
   width: 18px;
 }
 .nav-dashboard-item a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-weight: 500;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   white-space: nowrap;
 }
 .nav-dashboard-item a.active {
+  background-color: var(--soft-blue);
   color: var(--primary);
-  font-weight: 600;
+  font-weight: 700;
+  border-radius: 0.5rem;
 }
 /*Dashboard wrapper*/
 .heading-wrapper {
   margin-bottom: 2rem;
+  width: 100%;
 }
 .heading-wrapper h1 {
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 0.3rem;
-  font-weight: 450;
+  font-size: 1.9rem;
 }
 .dashboard-cards {
   display: flex;
@@ -1143,8 +1299,12 @@ td p.opportunity-type.graduate_programme {
   width: 40%;
   text-align: center;
 }
-.empty-list-wrapper button {
-  background-color: var(--primary);
+.empty-list-wrapper a {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  gap: 0.5rem;
+  background-color: var(--primary2);
   color: #fff;
   font-size: 1rem;
   font-weight: 450;
@@ -1179,6 +1339,11 @@ footer {
 /*///////////////////////////////////*/
 /*MOBILE QUERY*/
 @media (max-width: 450px){
+  /*// Nav account //*/
+.nav-account-wrapper {
+  display: none;
+}
+
   /*HEADER*/
   .header {
     padding: 0.5rem 0;

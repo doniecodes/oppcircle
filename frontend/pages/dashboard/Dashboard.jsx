@@ -3,11 +3,14 @@ import React from 'react'
 import FileIcon from "../../images/icons/file.svg"
 
 const Dashboard = () => {
+  
+  const userData = JSON.parse(localStorage.getItem("user"));
+  
   return (
     <div className="container2">
       <section className="dashboard-wrapper">
         <div className="heading-wrapper">
-          <h1>Welcome back Standard Bank</h1>
+          <h1>Welcome back {userData && userData.name}</h1>
           <p>Create opportunities and make an impact</p>
         </div>
           

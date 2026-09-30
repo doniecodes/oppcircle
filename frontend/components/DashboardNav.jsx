@@ -14,24 +14,34 @@ const DashboardNav = () => {
       <nav className="nav-dashboard">
           <ul className="nav-list-dashboard">
             <li className="nav-dashboard-item">
+              <NavLink end to=".">
               <img src={DashboardIcon} />
-              <NavLink end to=".">Dashboard</NavLink>
+                Dashboard
+              </NavLink>
             </li>
             <li className="nav-dashboard-item">
+              <NavLink to="opportunities">
               <img src={OpportunitiesIcon} />
-              <NavLink to="opportunities">Opportunities</NavLink>
+                Opportunities
+              </NavLink>
             </li>
             <li className="nav-dashboard-item">
+              <NavLink to="company-profile">
               <img src={CompanyProfileIcon} />
-              <NavLink to="company-profile">Company Profile</NavLink>
+                Company Profile
+              </NavLink>
             </li>
             <li className="nav-dashboard-item">
+              <NavLink to="analytics">
               <img src={AnalyticsIcon} />
-              <NavLink to="analytics">Analytics</NavLink>
+                Analytics
+              </NavLink>
             </li>
             <li className="nav-dashboard-item">
+              <NavLink to="settings">
               <img src={SettingsIcon} />
-              <NavLink to="settings">Settings</NavLink>
+                Settings
+              </NavLink>
             </li>
           </ul>
       </nav>

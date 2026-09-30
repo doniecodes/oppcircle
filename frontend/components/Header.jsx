@@ -8,7 +8,7 @@ const Header = () => {
   
   const [ show, setShow ] = useState(false);
   
-  const user = null;
+  const userData = JSON.parse(localStorage.getItem("user"));
   
   return (
     <header className="header">
@@ -40,20 +40,6 @@ const Header = () => {
               </NavLink>
             </li>
             <li className="link">
-              <NavLink to="/opportunities?type=job"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Jobs
-              </NavLink>
-            </li>
-            <li className="link">
-              <NavLink to="/dashboard"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Dashboard
-              </NavLink>
-            </li>
-            <li className="link">
               <NavLink to="/dashboard"
               className={({isActive})=> (
               isActive ? "active" : "" )}>
@@ -62,7 +48,7 @@ const Header = () => {
             </li>
           </ul>
           
-          { !user ?
+          { !userData &&
           <>
           <ul className="nav-buttons">
             <li className="btn">
@@ -77,10 +63,13 @@ const Header = () => {
             </li>
           </ul>
           </>
-          : 
+          }
+          { userData &&
           <>
-          <div className="nav-buttons">
-            
+          <div className="nav-account-wrapper">
+            <ul>
+              <li>{userData.name}</li>
+            </ul>
           </div>
           </>
           }
@@ -120,14 +109,6 @@ const Header = () => {
             className={({isActive})=> (
             isActive ? "active" : "" )}>
               Opportunities
-            </NavLink>
-          </li>
-          <li className="link">
-            <NavLink to="/opportunities?type=job"
-            onClick={()=> setShow(false)}
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Jobs
             </NavLink>
           </li>
           <li className="link">

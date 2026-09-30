@@ -18,10 +18,11 @@ import OpportunityCompany from '../pages/opportunities/OpportunityCompany';
 
 import DashboardLayout from '../components//DashboardLayout';
 import Dashboard from '../pages/dashboard/Dashboard';
-import DashboardOpportunities from '../pages/dashboard/Opportunities';
+import DashboardOpportunities, { loader as dashboardOpportunitiesLoader } from '../pages/dashboard/Opportunities';
 import CompanyProfile from '../pages/dashboard/CompanyProfile';
 import Analytics from '../pages/dashboard/Analytics';
 import Settings from '../pages/dashboard/Settings';
+import CreateOpportunity, { loader as createOpportunityLoader, action as createOpportunityAction } from '../pages/dashboard/CreateOpportunity';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,18 +30,19 @@ const router = createBrowserRouter(
     <Route path="/" element={<MainOutlet/>}>
       <Route index element={<Home/>}
       loader={homeLoader}
-      errorElememt={<RouteError/>}
+      errorElement={<RouteError/>}
       />
       
       <Route path="opportunities"
       element={<Opportunities />}
       loader={opportunitiesLoader}
+      errorElement={<RouteError/>}
       />
       
       <Route path="opportunities/:id"
       element={<OpportunityDetailsLayout />}
       loader={opportunityDetailsLoader}
-      errorElememt={<RouteError/>}>
+      errorElement={<RouteError/>}>
         <Route index element={<OpportunityOverview />} />
         <Route path="company" element={<OpportunityCompany />} />
       </Route>
@@ -48,11 +50,28 @@ const router = createBrowserRouter(
       <Route
       path="dashboard"
       element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="opportunities" element={<DashboardOpportunities />} />
-        <Route path="company-profile" element={<CompanyProfile />} />
-        <Route path="analytics" element={<Analytics />} />
-        <Route path="settings" element={<Settings />} />
+        <Route
+        index
+        errorElement={<RouteError/>}
+        element={<Dashboard />} />
+        <Route
+        path="opportunities"
+        element={<DashboardOpportunities />}
+        errorElement={<RouteError/>}
+        loader={dashboardOpportunitiesLoader}/>
+        <Route
+        path="opportunities/create"
+        element={<CreateOpportunity />}
+        action={createOpportunityAction}
+        loader={createOpportunityLoader}
+        errorElement={<RouteError/>}/>
+      
+        <Route path="company-profile"
+        element={<CompanyProfile />} />
+        <Route path="analytics"
+        element={<Analytics />} />
+        <Route path="settings"
+        element={<Settings />} />
       </Route>
       
       <Route path="login"

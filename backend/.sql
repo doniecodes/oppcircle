@@ -134,6 +134,12 @@ CREATE TABLE tags (
     slug VARCHAR(120) UNIQUE NOT NULL
 );
 
+CREATE TABLE industries (
+    id UUID PRIMARY KEY DEFAULT NULL,
+    name VARCHAR(100) NOT NULL,
+    slug VARCHAR(120) UNIQUE NOT NULL
+);
+
 CREATE TABLE opportunity_tags (
     opportunity_id UUID NOT NULL
         REFERENCES opportunities(id)

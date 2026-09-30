@@ -12,7 +12,7 @@ export const action = async({request})=> {
   const password = formData.get("password");
   try {
     const data = await loginUser(email, password);
-    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("user", JSON.stringify(data));
     return redirect("/");
   } catch (error) {
     return { error: error.message };

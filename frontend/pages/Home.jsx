@@ -66,6 +66,7 @@ const Home = () => {
       <Icons />
     </div>
     
+    { opportunities.length > 0 &&
     <div className="container">
     <section className="featured-section">
       <div className="heading2-wrapper">
@@ -87,6 +88,7 @@ const Home = () => {
       </div>
     </section>
     </div>
+    }
     
     </>
   )
