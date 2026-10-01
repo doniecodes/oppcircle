@@ -37,11 +37,11 @@
     }
     
   //create user organization
-    export const createUserOrganization = async (name, companyEmail, website, industry, country, password)=> {
+    export const createUserOrganization = async (name, companyEmail, website, industry, location, password)=> {
       const res = await fetch(`${URI}/user/signup/organization`, {
         method: "POST",
         headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({name, companyEmail, website, industry, country, password})
+        body: JSON.stringify({name, companyEmail, website, industry, location, password})
       });
       const data = await res.json();
       if (!res.ok) {
@@ -53,3 +53,12 @@
       }
       return data;
     }
+    
+  //logout
+  export const logoutUser = async ()=> {
+    const res = await fetch(`${URI}/user/logout`, {
+      method: "DELETE"
+    });
+    const data = await res.json();
+    return data;
+  }

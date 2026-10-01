@@ -186,6 +186,83 @@ body {
 .btn.signup a:hover {
   opacity: 0.6;
 }
+/*Logout btn*/
+.logout-btn-mobile {
+  background-color: transparent;
+  border: 1.5px solid var(--red);
+  color: var(--red);
+  border-radius: 100vmax;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+}
+
+/*/// USER CARD ///*/
+.nav-account-wrapper {
+}
+.account-icons {
+  display: flex;
+  align-content: flex-end;
+  gap: 2.5rem;
+}
+.bell-icon {
+  color: var(--purple);
+  font-size: 1.8rem;
+  border: none;
+  background-color: transparent;
+}
+.account-icon-btn {
+  background-color: transparent;
+  border: none;
+}
+.account-icon-btn .account-icon {
+  width: 40px;
+  border: 1.5px solid var(--purple);
+  border-radius: 50%;
+}
+/*Account Menu*/
+.account-menu-wrapper {
+  width: 50%;
+  height: 100vh;
+  position: absolute;
+  top: 75px;
+  right: 0;
+  background-color: var(--soft-white2);
+  padding: 1rem;
+}
+.account-menu-close-icon {
+  width: 45px;
+  border: 1.5px solid var(--red);
+  border-radius: 50%;
+  padding: 0.2rem;
+  justify-self: flex-end;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+.nav-account-wrapper ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 1rem 0;
+}
+.nav-account-wrapper ul li {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  background-color: var(--soft-white);
+  border-radius: 100vmax;
+}
+.nav-account-wrapper ul li:hover {
+  cursor: pointer;
+  text-decoration: underline 0.1rem;
+  text-underline-offset: 0.1rem;
+}
+.nav-account-wrapper ul li:first-child {
+  margin-bottom: 1.5rem;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
 
 /*Hero*/
 .hero {
@@ -783,8 +860,11 @@ body {
 }
 .account-type-wrapper h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1rem;
+}
+.account-type-wrapper h3 span {
+  color: var(--red);
 }
 .account-type-wrapper div {
   margin-bottom: 1rem;
@@ -1178,7 +1258,7 @@ td p.status {
   font-size: 0.9rem;
 }
 /*location, work mode, industry and requirements*/
-.form-group select {
+.form-group-wrapper .form-group select {
   height: 40px;
   border: 1.5px solid var(--border);
   border-radius: 0.5rem;
@@ -1189,6 +1269,11 @@ td p.status {
 .grid-group {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.grid-group.website {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
   gap: 1rem;
 }
 

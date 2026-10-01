@@ -1,14 +1,29 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+
+import { logoutUser } from '../services/userApi';
+
+import { FaBell } from 'react-icons/fa';
 import LogoImage from "../images/logo5.png";
 import CloseIcon from "../images/icons/close-dark.svg";
 import MenuIcon from "../images/icons/menu3.svg";
+import NoAvatarIcon from "../images/no_avatar.png";
 
 const Header = () => {
   
   const [ show, setShow ] = useState(false);
+  const [ menuShow, setMenuShow ] = useState(false);
   
   const userData = JSON.parse(localStorage.getItem("user"));
+  const avatarIcon = userData && userData.avatar_url !== null ? userData.avatar_url : NoAvatarIcon;
+  
+  const navigate = useNavigate();
+  
+  const handleLogout = async ()=> {
+    localStorage.removeItem("user");
+    await logoutUser();
+    navigate("/login")
+  }
   
   return (
     <header className="header">
@@ -26,19 +41,13 @@ const Header = () => {
         
           <ul className="nav-links">
             <li className="link">
-              <NavLink to="/"
-              className={({isActive})=> (
-              isActive ? "active" : "" )}>
-                Home
-              </NavLink>
-            </li>
-            <li className="link">
               <NavLink to="/opportunities"
               className={({isActive})=> (
               isActive ? "active" : "" )}>
                 Opportunities
               </NavLink>
             </li>
+            { userData && userData.account_type === "organization" &&
             <li className="link">
               <NavLink to="/dashboard"
               className={({isActive})=> (
@@ -46,9 +55,17 @@ const Header = () => {
                 Dashboard
               </NavLink>
             </li>
+            }
+            <li className="link">
+              <NavLink to="/contact"
+              className={({isActive})=> (
+              isActive ? "active" : "" )}>
+                Contact
+              </NavLink>
+            </li>
           </ul>
           
-          { !userData &&
+          { userData === null &&
           <>
           <ul className="nav-buttons">
             <li className="btn">
@@ -64,12 +81,37 @@ const Header = () => {
           </ul>
           </>
           }
+          
           { userData &&
           <>
           <div className="nav-account-wrapper">
-            <ul>
-              <li>{userData.name}</li>
-            </ul>
+            <div className="account-icons">
+              <button className="bell-icon">
+                <FaBell/>
+              </button>
+              <button
+              className="account-icon-btn"
+              onClick={()=> setMenuShow(true)}>
+                <img
+                src={avatarIcon}
+                className="account-icon"
+                />
+              </button>
+            </div>
+            {menuShow &&
+            <div className={`account-menu-wrapper`}>
+                <img
+                src={CloseIcon}
+                className="account-menu-close-icon"
+                onClick={()=> setMenuShow(false)}
+                />
+              <ul className="account-menu">
+                <li>{userData.name}</li>
+                <li>Update Profile</li>
+                <li onClick={()=> handleLogout()}>Logout</li>
+              </ul>
+            </div>
+            }
           </div>
           </>
           }
@@ -111,6 +153,7 @@ const Header = () => {
               Opportunities
             </NavLink>
           </li>
+          { userData && userData.account_type === "organization" &&
           <li className="link">
             <NavLink to="/dashboard"
             onClick={()=> setShow(false)}
@@ -119,9 +162,20 @@ const Header = () => {
                 Dashboard
             </NavLink>
           </li>
+          }
+          <li className="link">
+            <NavLink to="/profile"
+            onClick={()=> setShow(false)}
+            className={({isActive})=> (
+            isActive ? "active" : "" )}>
+              Profile
+            </NavLink>
+          </li>
         </ul>
           
           <ul className="nav-buttons">
+          { !userData ?
+          <>
             <li className="btn">
               <NavLink
               onClick={()=> setShow(false)}
@@ -129,13 +183,14 @@ const Header = () => {
                 Login
               </NavLink>
             </li>
+          </> :
             <li className="btn signup">
-              <NavLink
-              onClick={()=> setShow(false)}
-              to="/signup">
-                Signup
-              </NavLink>
+              <button className="logout-btn-mobile"
+              onClick={()=> handleLogout()}>
+                Logout
+              </button>
             </li>
+          }
           </ul>
       </div>
       : null }

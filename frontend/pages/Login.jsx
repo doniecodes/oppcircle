@@ -31,7 +31,7 @@ const Login = () => {
               <h2>Login to your OppCircle account</h2>
               <div className="form-group">
                 <label htmlFor="email">
-                  Email *
+                  Email <span>*</span>
                 </label>
                 <div>
                   <img src={EmailIcon} />
@@ -45,7 +45,7 @@ const Login = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="password">
-                  Password *
+                  Password <span>*</span>
                 </label>
                 <div>
                   <img src={LockIcon} />

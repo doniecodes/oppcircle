@@ -12,7 +12,7 @@ import Home, { loader as homeLoader } from '../pages/Home';
 import Opportunities, { loader as opportunitiesLoader } from '../pages/opportunities/Opportunities';
 import OpportunityDetailsLayout, { loader as opportunityDetailsLoader } from '../components/OpportunityDetailsLayout';
 import Login, { action as loginAction } from '../pages/Login';
-import Signup, { action as signupAction } from '../pages/Signup';
+import Signup, { action as signupAction, loader as signupLoader } from '../pages/Signup';
 import OpportunityOverview from '../pages/opportunities/OpportunityOverview';
 import OpportunityCompany from '../pages/opportunities/OpportunityCompany';
 
@@ -80,6 +80,7 @@ const router = createBrowserRouter(
       />
       <Route path="signup"
       element={<Signup />}
+      loader={signupLoader}
       action={signupAction}
       />
       

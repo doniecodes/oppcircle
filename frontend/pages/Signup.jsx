@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useActionData, Form, redirect } from "react-router-dom";
+import { Link, useActionData, useLoaderData, Form, redirect } from "react-router-dom";
 import { createUserPersonal, createUserOrganization } from "../services/userApi";
+import { getLocations, getIndustries } from "../services/opportunitiesApi";
 
 import PersonIcon from "../images/icons/name.png";
 import EmailIcon from "../images/icons/email.svg";
@@ -9,7 +10,14 @@ import CircuitIcon from "../images/icons/circuit.svg";
 import LocationIcon from "../images/icons/location2.png";
 import LockIcon from "../images/icons/lock.svg";
 
+//loader
+export const loader = async ()=> {
+  const locationsData = await getLocations();
+  const industriesData = await getIndustries();
+  return { locationsData, industriesData }
+}
 
+//action
 export const action = async({request})=> {
     const formData = await request.formData();
     const type = formData.get("type");
@@ -18,7 +26,7 @@ export const action = async({request})=> {
     const companyEmail = formData.get("company-email");
     const website = formData.get("website");
     const industry = formData.get("industry");
-    const country = formData.get("country");
+    const location = formData.get("location");
     const password = formData.get("password");
     
     try {
@@ -26,7 +34,7 @@ export const action = async({request})=> {
       if(type === "personal"){
         data = await createUserPersonal(email, password);
       } else {
-        data = await createUserOrganization(name, companyEmail, website, industry, country, password);
+        data = await createUserOrganization(name, companyEmail, website, industry, location, password);
       }
       if(type === "personal"){
         return redirect("/");
@@ -43,7 +51,10 @@ const Signup = () => {
   
   //loader variables
   const actionData = useActionData();
-  console.log(actionData);
+  const { locationsData, industriesData } = useLoaderData();
+  const industries = industriesData && industriesData.industries;
+  const locations = locationsData && locationsData.locations;
+  
   
   //states
   const [ accountType, setAccountType ] = useState("personal");
@@ -57,7 +68,7 @@ const Signup = () => {
               <h2>Create an OppCircle account</h2>
               
               <div className="account-type-wrapper">
-                <h3>Choose account type*</h3>
+                <h3>Choose account type <span>*</span></h3>
                 <div>
                   <label htmlFor="personal">
                     <input
@@ -91,7 +102,7 @@ const Signup = () => {
               <>
               <div className="form-group">
                 <label htmlFor="email">
-                  Email *
+                  Email <span>*</span>
                 </label>
                 <div>
                 <img src={EmailIcon} />
@@ -106,7 +117,7 @@ const Signup = () => {
               
               <div className="form-group">
                 <label htmlFor="password">
-                  Password *
+                  Password <span>*</span>
                 </label>
                 <div>
                   <img src={LockIcon} />
@@ -124,7 +135,7 @@ const Signup = () => {
               <>
               <div className="form-group">
                 <label htmlFor="name">
-                  Company name *
+                  Company name <span>*</span>
                 </label>
                 <div>
                 <img src={PersonIcon} className="name-icon" />
@@ -139,7 +150,7 @@ const Signup = () => {
               
               <div className="form-group">
                 <label htmlFor="company-email">
-                  Company email *
+                  Company email <span>*</span>
                 </label>
                 <div>
                   <img src={EmailIcon} />
@@ -154,7 +165,7 @@ const Signup = () => {
               
               <div className="form-group">
                 <label htmlFor="website">
-                  Website *
+                  Website <span>*</span>
                 </label>
                 <div>
                   <img src={LinkIcon} />
@@ -169,7 +180,7 @@ const Signup = () => {
               
               <div className="form-group industry">
                 <label htmlFor="industry">
-                  Industry *
+                  Industry <span>*</span>
                 </label>
                 <div>
                   <img src={CircuitIcon} />
@@ -177,28 +188,30 @@ const Signup = () => {
                   name="industry"
                   id="industry">
                     <option value="none">Select industry</option>
-                    <option value="Accounting">Accounting</option>
-                    <option value="Banking">Banking</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Other">Other</option>
+                    { industries.map(x=> (
+                    <option key={x.id} value={x.name}>
+                      {x.name}
+                    </option>
+                    ))}
                   </select>
                 </div>
               </div>
               
               <div className="form-group country">
-                <label htmlFor="country">
-                  Country *
+                <label htmlFor="location">
+                  Location <span>*</span>
                 </label>
                 <div>
                   <img src={LocationIcon} />
                   <select
-                  name="country"
-                  id="country">
-                    <option value="none">Select country</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Botswana">Botswana</option>
-                    <option value="Canada">Canada</option>
-                    <option value="South Africa">South Africa</option>
+                  name="location"
+                  id="location">
+                    <option value="none">Select location</option>
+                    { locations.map(x=> (
+                    <option key={x.id} value={`${x.city}, ${x.province}`}>
+                      {`${x.city}, ${x.province}`}
+                    </option>
+                    ))}
                     <option value="Other">Other</option>
                   </select>
                 </div>
@@ -206,7 +219,7 @@ const Signup = () => {
               
               <div className="form-group">
                 <label htmlFor="password">
-                  Password *
+                  Password <span>*</span>
                 </label>
                 <div>
                   <img src={LockIcon} />

@@ -84,7 +84,7 @@ const CreateOpportunity = () => {
               Opportunity Type <span>*</span>
             </label>
             <select name="type" id="type">
-              <option value="null">Select type</option>
+              <option value="none">Select type</option>
               {types.map((x)=> (
               <option key={x} value={x}>{x === "graduate_programme" ? "Graduate Programme" : x}</option>
               ))}
@@ -119,11 +119,11 @@ const CreateOpportunity = () => {
               Location <span>*</span>
             </label>
             <select name="location" id="location">
-              <option value="null">Select location</option>
+              <option value="none">Select location</option>
               {locations.map((x)=> (
               <option key={x.id} value={`${x.city}, ${x.province}`}>{`${x.city}, ${x.province}`}</option>
               ))}
-              <option value="other">Select location</option>
+              <option value="other">Other</option>
             </select>
           </div>
           <div className="form-group work-mode">
@@ -131,7 +131,7 @@ const CreateOpportunity = () => {
               Work Mode <span>*</span>
             </label>
             <select name="work-mode" id="work-mode">
-              <option value="null">Select work mode</option>
+              <option value="none">Select work mode</option>
               {workModes.map((x)=> (
               <option key={x} value={x}>{x}</option>
               ))}
@@ -142,7 +142,7 @@ const CreateOpportunity = () => {
               Industry <span>*</span>
             </label>
             <select name="industry" id="industry">
-              <option value="null">Select industry</option>
+              <option value="none">Select industry</option>
               {industries.map((x)=> (
               <option key={x.id} value={x.name}>{x.name}</option>
               ))}
@@ -171,7 +171,7 @@ const CreateOpportunity = () => {
               Minimum Qualification <span>(optional)</span>
             </label>
             <select name="qualification" id="qualification">
-              <option value="null">Select qualification level</option>
+              <option value="none">Select qualification level</option>
               {types.map((x)=> (
               <option key={x} value={x}>{x}</option>
               ))}
@@ -182,7 +182,18 @@ const CreateOpportunity = () => {
         
         <div className="form-group-wrapper details">
           <h3>Application Details</h3>
-          <div className="flex-group">
+          <div className="grid-group website">
+          <div className="form-group website">
+            <label htmlFor="website">
+              Application Website <span>*</span>
+            </label>
+            <input
+            type="text"
+            name="website"
+            id="website"
+            placeholder="Application website"
+            />
+          </div>
           <div className="form-group deadline">
             <label htmlFor="deadline">
               Application Deadline <span>*</span>

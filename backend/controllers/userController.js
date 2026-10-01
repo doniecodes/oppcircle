@@ -36,8 +36,9 @@ const loginUser = async(req, res)=> {
     }
     const token = signToken(user.rows[0].id);
     const name = user.rows[0].full_name;
-    const account_type = user.rows[0].account_type;
-    res.status(201).json({user: email, name, account_type, token});
+    const account_type = "personal";
+    const avatar_url = user.rows[0].avatar_url;
+    res.status(201).json({user: email, name, account_type, avatar_url, token});
   } catch (error) {
     console.log(error);
     res.status(500).json({error: "Could not log you in, please try again later"})
@@ -71,8 +72,9 @@ const signupUserPersonal = async(req, res)=> {
     const user = await pool.query(`INSERT INTO profiles(id, account_type, full_name, username, email, password) VALUES($1, $2, $3, $4, $5, $6)`, [id, "personal", full_name, username, email, passwordHash]);
     const token = signToken(id);
     const name = user.rows[0].full_name;
-    const account_type = user.rows[0].account_type;
-    res.status(201).json({user: email, name, account_type, token});
+    const account_type = "personal";
+    const avatar_url = user.rows[0].avatar_url;
+    res.status(201).json({user: email, name, account_type, avatar_url, token});
   } catch (error) {
     console.log(error)
     res.status(500).json({error: "Could not create account, please try again later"});
@@ -81,12 +83,14 @@ const signupUserPersonal = async(req, res)=> {
 
 //signup organization
 const signupUserOrganization = async(req, res)=> {
-  const { name, companyEmail, website, industry, country, password } = req.body;
+  const { name, companyEmail, website, industry, location, password } = req.body;
   const userId = uuidv7();
-  const description = `A company in ${country}`;
+  const description = `A company in ${location}`;
+  const city = location.split(",")[0];
+  const province = location.split(",")[1];
   
   //form validation
-  if(!name || !companyEmail || !website || !industry || !country || !password){
+  if(!name || !companyEmail || !website || !industry || !location || !password){
     return res.status(404).json({error: "Please fill in all fields"});
   }
   if(!validator.isEmail(companyEmail)){
@@ -95,11 +99,11 @@ const signupUserOrganization = async(req, res)=> {
   if(industry === "none"){
     return res.status(404).json({error: "Please select industry, choose other if not listed"});
   }
-  if(country === "none"){
-    return res.status(404).json({error: "Please select country, choose other if not listed"});
+  if(location === "none"){
+    return res.status(404).json({error: "Please select location, choose other if not listed"});
   }
   if(!validator.isStrongPassword(password)){
-    return res.status(404).json({error: "Please enter a strong password"});
+    return res.status(404).json({error: "Password must be at least 8 characters and include a mix of letters, numbers, and special characters"});
   }
   
   try {
@@ -113,19 +117,29 @@ const signupUserOrganization = async(req, res)=> {
     const passwordHash = await bcryptjs.hash(password, salt);
     //create company
     const companyResult = await pool.query(
-      `INSERT INTO companies (id, name, description, website_url, industry, country)
-      VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,[userId, name, description, website, industry, country]);
+      `INSERT INTO companies (id, name, description, website_url, industry, city, province)
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`,[userId, name, description, website, industry, city, province]);
       //Grab the id from company
       const companyId = companyResult.rows[0].id;
       //then create user, reference companyId on company_id
     const user = await pool.query(`INSERT INTO profiles(id, account_type, full_name, email, company_id, password) VALUES($1, $2, $3, $4, $5, $6)`, [userId, "organization", name, companyEmail, companyId, passwordHash]);
     const token = signToken(userId);
-    res.status(201).json({user: companyEmail, name, token});
+    const avatar_url = user.rows[0].avatar_url;
+    const account_type = "organization";
+    res.status(201).json({user: companyEmail, name, avatar_url, token});
   } catch (error) {
     console.log(error);
     res.status(500).json({error: "Could not create account, please try again later"});
   }
 }
 
+const logoutUser = async(req, res)=> {
+  try {
+    res.status(201).json({message: "Successfully logged out"});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error: "Could not log out, please try again later"});
+  }
+}
 
-module.exports = { loginUser, signupUserPersonal, signupUserOrganization }
+module.exports = { loginUser, signupUserPersonal, signupUserOrganization, logoutUser }
