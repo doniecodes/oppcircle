@@ -1,11 +1,12 @@
 const pool = require("../data/pg")
 
 const getDashboardOpportunities = async (req, res)=> {
-  const userId = "01993b2a-7c41-7e8a-9f23-4d6b8a1c2057";
+  
+  const company_id = req.company_id;
   const { offset } = req.query;
   
   try {
-    const opportunities = await pool.query("SELECT * FROM opportunities WHERE company_id = $1 ORDER BY created_at DESC OFFSET $2 LIMIT 5", [userId, offset]);
+    const opportunities = await pool.query("SELECT * FROM opportunities WHERE company_id = $1 ORDER BY created_at DESC OFFSET $2 LIMIT 5", [company_id, offset]);
     res.status(201).json({opportunities: opportunities.rows});
   } catch (error) {
     res.status(404).json({error: "Could not fetch opportunities, please try again later"});

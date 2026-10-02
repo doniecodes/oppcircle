@@ -24,11 +24,12 @@ export const action = async ({request})=> {
   const industry = formData.get("industry");
   const skills = formData.get("skills");
   const qualifications = formData.get("qualification");
+  const website = formData.get("website");
   const deadline = formData.get("deadline");
   const positions = formData.get("positions");
   
   try {
-    const data = await createOpportunity(title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions);
+    const data = await createOpportunity(title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions, website);
   } catch (error) {
     return { error: error.message };
   }
@@ -43,7 +44,7 @@ const CreateOpportunity = () => {
   const locations = locationsData && locationsData.locations;
   
   const types = ["internship", "job", "graduate_programme", "bursary", "scholarship", "learnership", "fellowship", "apprenticeship", "competition", "bootcamp", "volunteering", "other"];
-  const workModes = ["on-site", "remote", "hybrid", "not_applicable"];
+  const workModes = ["on_site", "remote", "hybrid", "not_applicable"];
   
   return (
     <div className="container2">
@@ -121,7 +122,11 @@ const CreateOpportunity = () => {
             <select name="location" id="location">
               <option value="none">Select location</option>
               {locations.map((x)=> (
-              <option key={x.id} value={`${x.city}, ${x.province}`}>{`${x.city}, ${x.province}`}</option>
+              <option
+              key={x.id}
+              value={`${x.id},${x.city},${x.province}`}>
+                {`${x.city}, ${x.province}`}
+              </option>
               ))}
               <option value="other">Other</option>
             </select>

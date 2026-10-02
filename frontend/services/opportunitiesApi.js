@@ -1,5 +1,8 @@
 
 const URI = import.meta.env.VITE_PUBLIC_URI;
+const user = JSON.parse(localStorage.getItem("user"));
+const token = user.token;
+console.log(token);
 
 //getOpportunities
     export const getOpportunities = async (search)=> {
@@ -47,7 +50,9 @@ const URI = import.meta.env.VITE_PUBLIC_URI;
   //Get dashboard oppprtunities
   export const getDashboardOpportunities = async (search)=> {
     const urlString = search ? `${URI}/dashboard/opportunities?${search}`: `${URI}/dashboard/opportunities`;
-    const res = await fetch(urlString);
+    const res = await fetch(urlString, {
+      headers: {"Authorization": `Bearer ${token}`}
+    });
     const data = await res.json();
     if(!res.ok){
       throw {
@@ -60,13 +65,16 @@ const URI = import.meta.env.VITE_PUBLIC_URI;
   }
   
   //create opportunity
-  export const createOpportunity = async (title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions)=> {
+  export const createOpportunity = async (title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions, website)=> {
     
     const urlString = `${URI}/opportunities/create`;
     const res = await fetch(urlString, {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions})
+      headers:
+      {"Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions, website})
     });
     const data = await res.json();
     if(!res.ok){

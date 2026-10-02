@@ -124,7 +124,7 @@ const Opportunities = () => {
               <td>
                 <div>
                   <h3>{opportunity.title.length > 30 ? opportunity.title.slice(0, 32) + "..." : opportunity.title}</h3>
-                  <p>{opportunity.summary.length > 70 ? opportunity.summary.slice(0, 70) + "..." : oppprtunity.summary}</p>
+                  <p>{opportunity.summary.length > 70 ? opportunity.summary.slice(0, 70) + "..." : opportunity.summary}</p>
                 </div>
               </td>
               <td>

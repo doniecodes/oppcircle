@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 
 import { logoutUser } from '../services/userApi';
 
-import { FaBell } from 'react-icons/fa';
+import { FaRegBell } from 'react-icons/fa';
 import LogoImage from "../images/logo5.png";
 import CloseIcon from "../images/icons/close-dark.svg";
 import MenuIcon from "../images/icons/menu3.svg";
@@ -87,7 +87,7 @@ const Header = () => {
           <div className="nav-account-wrapper">
             <div className="account-icons">
               <button className="bell-icon">
-                <FaBell/>
+                <FaRegBell/>
               </button>
               <button
               className="account-icon-btn"
@@ -107,6 +107,15 @@ const Header = () => {
                 />
               <ul className="account-menu">
                 <li>{userData.name}</li>
+                { userData && userData.account_type === "organization" &&
+                <li>
+                  <NavLink to="/dashboard"
+                  className={({isActive})=> (
+                  isActive ? "active" : "" )}>
+                    Dashboard
+                  </NavLink>
+                </li>
+                }
                 <li>Update Profile</li>
                 <li onClick={()=> handleLogout()}>Logout</li>
               </ul>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, Form, useActionData } from "react-router-dom";
 
 import Icons from "../components/Icons";
 import Opportunities from "./opportunities/Opportunities";
@@ -17,24 +17,24 @@ export const loader = async ()=> {
   return data;
 }
 
+export const action = async ({request})=> {
+  const formData = await request.formDta();
+  const term = formData.get("term");
+  console.log(term)
+}
+
 const Home = () => {
-  
-  //states
-  const [ term, setTerm ] = useState("");
   
   //opportunities
   const data = useLoaderData();
   const opportunities = data.opportunities;
-  
-  const handleSearch = async (e)=> {
-    e.preventDefault();
-    console.log(term);
-  }
+  const actionData = useActionData();
   
   return (
     <>
     <section className="hero">
     <div className="hero-img"></div>
+    <div className="container">
       <div className="hero-content-wrapper">
         
         <div className="hero-text-wrapper">
@@ -44,21 +44,21 @@ const Home = () => {
           <p className="text">
             Connecting students and young people with internships, jobs, graduate programmes, bursaries, scholarships, learnerships and more - all in one place.
           </p>
-          <form className="hero-form"
-          onSubmit={handleSearch}>
+          <Form className="hero-form"
+          method="post">
             <FaSearch className="icon" />
             <input
             type="text"
+            name="term"
             placeholder="Search for opportunities..."
-            value={term}
-            onChange={(e)=> setTerm(e.target.value)}
             />
             <button className="btn-search">
               Search
             </button>
-          </form>
+          </Form>
         </div>
           
+      </div>
       </div>
     </section>
     

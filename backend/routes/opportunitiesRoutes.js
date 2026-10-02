@@ -1,5 +1,6 @@
 const express = require("express");
 const { getOpportunities, getOpportunitiesFeatured, getOpportunity, createOpportunity, updateOpportunity, deleteOpportunity } = require("../controllers/opportunitiesController");
+const requireOrganization = require("../middlewares/requireOrganization");
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.get("/featured", getOpportunitiesFeatured);
 //get opportunity
 router.get("/:id", getOpportunity);
 //create opportunity
-router.post("/create", createOpportunity);
+router.post("/create", requireOrganization, createOpportunity);
 //update opportunity
 router.patch("/:id", updateOpportunity);
 //delete opportunity

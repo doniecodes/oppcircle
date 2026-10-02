@@ -208,7 +208,7 @@ const Signup = () => {
                   id="location">
                     <option value="none">Select location</option>
                     { locations.map(x=> (
-                    <option key={x.id} value={`${x.city}, ${x.province}`}>
+                    <option key={x.id} value={`${x.city},${x.province}`}>
                       {`${x.city}, ${x.province}`}
                     </option>
                     ))}

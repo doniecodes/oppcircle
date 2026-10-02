@@ -8,7 +8,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import RouteError from '../components/RouteError';
 
 import MainOutlet from '../pages/MainOutlet';
-import Home, { loader as homeLoader } from '../pages/Home';
+import Home, { loader as homeLoader, action as homeAction } from '../pages/Home';
 import Opportunities, { loader as opportunitiesLoader } from '../pages/opportunities/Opportunities';
 import OpportunityDetailsLayout, { loader as opportunityDetailsLoader } from '../components/OpportunityDetailsLayout';
 import Login, { action as loginAction } from '../pages/Login';
@@ -30,6 +30,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<MainOutlet/>}>
       <Route index element={<Home/>}
       loader={homeLoader}
+      action={homeAction}
       errorElement={<RouteError/>}
       />
       

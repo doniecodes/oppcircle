@@ -42,15 +42,17 @@ CREATE TABLE opportunities (
     company_id UUID NOT NULL
     REFERENCES companies(id)
     ON DELETE CASCADE,
-    location_id UUID NOT NULL
+    location_id UUID
     REFERENCES locations(id)
     ON DELETE SET NULL,
     title VARCHAR(255) NOT NULL,
-    slug VARCHAR(300) UNIQUE NOT NULL,
+    slug VARCHAR(300),
     summary VARCHAR(500),
     description TEXT NOT NULL,
     type opportunity_type NOT NULL,
     work_mode work_mode DEFAULT 'not_applicable',
+    industry VARCHAR(255),
+    positions INTEGER DEFAULT 1,
     start_date DATE,
     closing_date DATE,
     application_url TEXT,
@@ -184,7 +186,7 @@ CREATE TABLE profiles (
 
 CREATE TABLE opportunity_saves (
     user_id UUID NOT NULL
-        REFERENCES users(id)
+        REFERENCES profiles(id)
         ON DELETE CASCADE,
     opportunity_id UUID NOT NULL
         REFERENCES opportunities(id)

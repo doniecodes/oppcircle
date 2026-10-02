@@ -36,7 +36,7 @@ const loginUser = async(req, res)=> {
     }
     const token = signToken(user.rows[0].id);
     const name = user.rows[0].full_name;
-    const account_type = "personal";
+    const account_type = user.rows[0].account_type;
     const avatar_url = user.rows[0].avatar_url;
     res.status(201).json({user: email, name, account_type, avatar_url, token});
   } catch (error) {
