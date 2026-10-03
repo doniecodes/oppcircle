@@ -39,6 +39,38 @@ const getOpportunity = async (req, res)=> {
   }
 }
 
+//create oppprtunity from validation
+const createOpportunityValidation = async (res, title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions, website)=> {
+  
+  if(!title){
+    return res.status(404).json({error: "Title is required"});
+  }
+  if(type === "none"){
+    return res.status(404).json({error: 'Please select the type of opportunity, choose "other" if not listed'});
+  }
+  if(!summary){
+    return res.status(404).json({error: "Please include a summary of the opportunity. A summary is a brief description"});
+  }
+  if(!description){
+    return res.status(404).json({error: "Please include a detailed description of the opportunity (e.g. role, responsibilities)"});
+  }
+  if(location === "none"){
+    return res.status(404).json({error: 'Please select the location where this opportunity is. choose "other" if not listed'});
+  }
+  if(mode === "none"){
+    return res.status(404).json({error: "Please select work mode"});
+  }
+  if(industry === "none"){
+    return res.status(404).json({error: 'Please select industry, choose "other" if not listed'});
+  }
+  if(!website){
+    return res.status(404).json({error: 'Please include the website url of this application. This is where candidates can send their applications'});
+  }
+  if(!deadline){
+    return res.status(404).json({error: 'Please include the closing date for this oppprtunity'});
+  }
+}
+
 //create opportunity
 const createOpportunity = async (req, res)=> {
   const { title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions, website } = req.body;
@@ -49,6 +81,8 @@ const createOpportunity = async (req, res)=> {
   const location_id = location.split(",")[0];
   const city = location.split(",")[1];
   const province = location.split(",")[2];
+  
+  await createOpportunityValidation(res, title, type, summary, description, location, mode, industry, skills, qualifications, deadline, positions, website);
   
   try {
     const opportunity = await pool.query(`INSERT INTO opportunities

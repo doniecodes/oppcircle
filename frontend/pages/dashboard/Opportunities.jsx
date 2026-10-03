@@ -4,9 +4,9 @@ import { useLoaderData, useSearchParams, Link } from "react-router-dom";
 import EmptyIcon from "../../images/icons/empty-list.jpg";
 import DiscoveryIcon from "../../images/icons/discovery.jpg";
 import OpportunitiesIcon from "../../images/icons/opportunity.png";
-import CalenderIcon from "../../images/icons/calender.png";
+import CalenderIcon from "../../images/icons/calender2.png";
 import TimeIcon from "../../images/icons/time.png";
-import { FaSearch, FaPlus, FaTrash } from "react-icons/fa";
+import { FaSearch, FaPlus, FaTrash, FaEye, FaUser } from "react-icons/fa";
 
 import { getDashboardOpportunities } from "../../services/opportunitiesApi";
 
@@ -123,8 +123,8 @@ const Opportunities = () => {
             <tr key={opportunity.id}>
               <td>
                 <div>
-                  <h3>{opportunity.title.length > 30 ? opportunity.title.slice(0, 32) + "..." : opportunity.title}</h3>
-                  <p>{opportunity.summary.length > 70 ? opportunity.summary.slice(0, 70) + "..." : opportunity.summary}</p>
+                  <h3>{opportunity.title}</h3>
+                  <p>{opportunity.company_name}</p>
                 </div>
               </td>
               <td>
@@ -133,8 +133,18 @@ const Opportunities = () => {
                 </p>
               </td>
               <td><p className="status">{opportunity.is_active ? "Active" : "Not active"}</p></td>
-              <td><p>{opportunity.views}</p></td>
-              <td>{opportunity.views}</td>
+              <td>
+                <p className="flex">
+                  <span><FaEye/></span>
+                  {opportunity.views}
+                </p>
+              </td>
+              <td>
+                <p className="flex">
+                  <span className="user"><FaUser/></span>
+                  {opportunity.views}
+                </p>
+              </td>
               <td className="td-with-icon">
                 <img src={CalenderIcon} />
                 {new Date(opportunity.closing_date).toLocaleDateString("en-ZA", {

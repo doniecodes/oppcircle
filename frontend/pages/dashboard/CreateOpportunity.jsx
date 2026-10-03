@@ -224,6 +224,13 @@ const CreateOpportunity = () => {
           </div>
         </div>
         
+        { actionData?.error ?
+          <div className="error-form">
+            { actionData.error }
+          </div>
+          : null
+        }
+        
         <button type="submit"
         className="create-opportunity-form-btn">
           Publish Opportunity
