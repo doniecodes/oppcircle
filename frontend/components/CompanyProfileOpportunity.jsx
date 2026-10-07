@@ -12,7 +12,7 @@ import PinIcon from '../images/icons/pin.png';
 import NoImageCircle from '../images/no-image-circle.png';
 
 
-const Opportunity = ({opportunity}) => {
+const CompanyProfileOpportunity = ({opportunity}) => {
 
   //date
   const formattedDate = new Date(opportunity.closing_date)
@@ -38,7 +38,7 @@ const Opportunity = ({opportunity}) => {
   return (
     <>
     <Link
-    to={`/opportunities/${opportunity.id}`}
+    to={`/opportunities/${opportunity.id}?backTo=company-profile`}
     className="opportunity">
       
       <div className="opportunity-header">
@@ -56,7 +56,7 @@ const Opportunity = ({opportunity}) => {
       <div className="opportunity-info">
         <div className="company-name">
           <img src={NameIcon} />
-          <p>{opportunity.name}</p>
+          <p>{opportunity.company_name}</p>
         </div>
         <div className="company-location">
           <img src={LocationIcon} />
@@ -82,4 +82,4 @@ const Opportunity = ({opportunity}) => {
   )
 }
 
-export default Opportunity
+export default CompanyProfileOpportunity

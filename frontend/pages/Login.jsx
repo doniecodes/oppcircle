@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { Link, useActionData, Form, redirect } from "react-router-dom";
 import PersonIcon from "../images/icons/name.png";
 import { loginUser } from "../services/userApi";
@@ -13,6 +14,7 @@ export const action = async({request})=> {
   try {
     const data = await loginUser(email, password);
     localStorage.setItem("user", JSON.stringify(data));
+    toast.success("Logged in successfully");
     return redirect("/");
   } catch (error) {
     return { error: error.message };

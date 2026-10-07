@@ -6,7 +6,7 @@ const getDashboardOpportunities = async (req, res)=> {
   const { offset } = req.query;
   
   try {
-    const opportunities = await pool.query("SELECT *, name as company_name FROM opportunities JOIN companies ON opportunities.company_id = companies.id WHERE company_id = $1 ORDER BY opportunities.created_at DESC OFFSET $2 LIMIT 5", [company_id, offset]);
+    const opportunities = await pool.query("SELECT *, name as company_name FROM opportunities JOIN companies on opportunities.company_id = companies.id WHERE company_id = $1 ORDER BY opportunities.created_at DESC OFFSET $2 LIMIT 5", [company_id, offset]);
     res.status(201).json({opportunities: opportunities.rows});
   } catch (error) {
     console.log(error)

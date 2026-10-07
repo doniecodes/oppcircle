@@ -27,7 +27,7 @@ const requireOrganization = async (req, res, next)=> {
   next();
   
   } catch (error) {
-    res.status(500).json({error: "User is not authorized"});
+    res.status(500).json({error: "User is not authorized, please log in again"});
   }
 }
 

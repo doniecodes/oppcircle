@@ -166,7 +166,7 @@ const Opportunities = () => {
       {/*More Filters*/}
       { shown &&
       <div className="more-filters-container">
-        <h2>More Filters <span onClick={()=> setShown(false)}>Cancel</span></h2>
+        <h2>More Filters <span className="more-filters-cancel-btn" onClick={()=> setShown(false)}>Cancel</span></h2>
         
         <form
         onSubmit={handleApply}

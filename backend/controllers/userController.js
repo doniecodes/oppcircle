@@ -41,7 +41,7 @@ const loginUser = async(req, res)=> {
     res.status(201).json({user: email, name, account_type, avatar_url, token});
   } catch (error) {
     console.log(error);
-    res.status(500).json({error: "Could not log you in, please try again later"})
+    res.status(500).json({error: "Could not log you in, please try again later"});
   }
 }
 

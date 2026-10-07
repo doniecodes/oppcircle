@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 
 import { logoutUser } from '../services/userApi';
@@ -20,14 +21,18 @@ const Header = () => {
   const navigate = useNavigate();
   
   const handleLogout = async ()=> {
-    localStorage.removeItem("user");
+    try {
     await logoutUser();
-    navigate("/login")
+    navigate("/login");
+    } catch (error) {
+      navigate("/login");
+    }
+    localStorage.removeItem("user");
+    toast.success("Logged out successfully");
   }
   
   return (
     <header className="header">
-      <div className="container">
         
         <nav className="main-nav">
           
@@ -141,7 +146,7 @@ const Header = () => {
           </ul>
           
         </nav>
-      </div>
+      
       
       { show ?
       <div className="sidebar-container">
@@ -192,6 +197,13 @@ const Header = () => {
                 Login
               </NavLink>
             </li>
+            <li className="btn">
+              <NavLink
+              onClick={()=> setShow(false)}
+              to="/signup">
+                Signup
+              </NavLink>
+            </li>
           </> :
             <li className="btn signup">
               <button className="logout-btn-mobile"
@@ -203,7 +215,6 @@ const Header = () => {
           </ul>
       </div>
       : null }
-      
     </header>
   )
 }

@@ -19,6 +19,8 @@
   --soft-red: #f4e5e5;
   --red: #c31b1b;
   --red2: #d95656;
+  
+  --toastify-color-success: #10b981;
 }
 
 * {
@@ -50,7 +52,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   font-style: normal;
-  background-color: #fff;
+  background-color: var(--white);
   color: var(--dark);
 }
 
@@ -83,13 +85,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
   background-color: var(--soft-white);
-  padding: 1rem 0 5rem 0;
+  padding: 1rem 0;
   position: absolute;
+  top: 54px;
   width: 100%;
-  z-index: 999;
-  box-shadow: 5px 5px 5000px 5000px rgba(0, 0, 0, 0.3);
+  height: 100vh;
+  /*box-shadow: 5px 5px 5000px 5000px rgba(0, 0, 0, 0.3);*/
 }
 .sidebar-container .nav-links {
   display: flex;
@@ -99,9 +101,10 @@ body {
 }
 .sidebar-container .nav-buttons {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-top: -10rem;
 }
 .sidebar-btns {
   display: flex;
@@ -114,12 +117,15 @@ body {
   display: none;
 }
 .sidebar-btns img {
-  width: 40px;
+  width: 38px;
 }
 
 /*Header*/
 .header {
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
   background-color: #fff;
   padding-block: 16px;
   position: sticky;
@@ -143,7 +149,7 @@ body {
   border-radius: 0.3rem;
 }
 .logo {
-  width: 200px;
+  width: 180px;
 }
 .logo-text {
   font-weight: 800;
@@ -207,12 +213,12 @@ body {
 }
 .account-icons {
   display: flex;
-  align-content: flex-end;
+  align-content: center;
   gap: 2.5rem;
 }
 .bell-icon {
   color: var(--primary2);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   border: none;
   background-color: transparent;
 }
@@ -221,7 +227,7 @@ body {
   border: none;
 }
 .account-icon-btn .account-icon {
-  width: 42px;
+  width: 36px;
   border: 1.8px solid var(--primary);
   border-radius: 50%;
 }
@@ -433,6 +439,11 @@ body {
   height: 40px;
   aspect-ratio: 1;
   object-fit: cover;
+}
+.company-icon.no-logo {
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin-left: -3rem;
 }
 .opportunity-type {
   border-radius: 100vmax;
@@ -716,6 +727,9 @@ body {
   font-size: 1rem;
   font-weight: 400;
   border-radius: 100vmax;
+}
+.more-filters-cancel-btn {
+  cursor: pointer;
 }
 
 /*OPPORTUNITY DETAILS, desktop*/
@@ -1004,7 +1018,7 @@ body {
   color: var(--red);
   font-size: 1rem;
   font-weight: 600;
-  margin: 1rem 0;
+  margin: 1rem 0 0.8rem 0;
   text-align: center;
 }
 
@@ -1013,6 +1027,7 @@ body {
 .container2 {
   width: 100%;
   padding: 1rem 1rem;
+  margin: 0 auto;
 }
 /*// Dashboard Header //*/
 .opportunities-header {
@@ -1272,6 +1287,16 @@ td p.status {
   width: 100%;
   background-color: transparent;
 }
+.form-group input {
+  height: 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0 0.6rem;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+}
 .form-group-wrapper.basic .form-group.type select {
   height: 40px;
   border: 1.5px solid var(--border);
@@ -1280,7 +1305,21 @@ td p.status {
   font-size: 1rem;
   outline: none;
 }
+.form-group select {
+  height: 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0 0.6rem;
+  font-size: 1rem;
+  outline: none;
+}
 .form-group-wrapper .flex-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.form-group .flex-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: flex-start;
@@ -1336,16 +1375,16 @@ td p.status {
   font-size: 1rem;
   border: none;
   border-radius: 0.6rem;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1rem;
 }
 
 /*Dashboard layout and nav*/
 .dashboard-main-layout {
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
-  /*gap: 1rem;*/
 }
 .nav-dashboard {
   display: flex;
@@ -1451,8 +1490,13 @@ td p.status {
 }
 
 /*COMPANY PROFILE PAGE*/
+.company-profile-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+/*Company Profile Info*/
 .company-profile-header {
-  margin-top: -0.5rem;
   margin-bottom: 1rem;
 }
 .company-profile-heading-wrapper {
@@ -1467,8 +1511,258 @@ td p.status {
   font-weight: 400;
   font-size: 1rem;
 }
+.company-profile-profile-card {
+  width: fit-content;
+  margin: 1.5rem 0;
+  border-radius: 1rem;
+  border: 2px solid var(--border);
+  display: flex;
+  align-content: flex-start;
+  gap: 2rem;
+  padding: 1rem;
+}
+.company-profile-logo-image {
+  width: 150px;
+  height: 150px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.profile-card-content-wrapper h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+}
+.company-profile-link {
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: underline 0.1rem #666;
+  text-underline-offset: 0.1rem;
+}
+.profile-card-chips {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.profile-card-chip {
+  background-color: var(--soft-white);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.profile-card-chip span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.profile-card-chip span img {
+  width: 15px;
+  height: 100%;
+}
+.profile-card-chip-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/*Company Profile Info Navbar*/
+.company-profile-navbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-weight: 500;
+  border-block: 1.5px solid var(--soft-blue);
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+.company-profile-nav-link.active {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: underline 1.9px var(--primary);
+  text-underline-offset: 0.7rem;
+}
+
+/*Company Profile Opportunities*/
+.company-profile-opportunities-wrapper {
+  margin: -1.5rem 0 1rem 0;
+}
+.company-profile-opportunities {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.company-profile-opportunities-wrapper h2 {
+  margin-bottom: 1rem;
+}
+.edit-profile-btn {
+  height: fit-content;
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 100vmax;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+}
+
+/*Company Profile about*/
+.company-profile-about-wrapper {
+  margin-top: -1.5rem;
+}
+
+/*EDIT PROFILE PAGE*/
+.company-edit-profile-heading-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.company-edit-profile-heading-wrapper h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+.company-edit-profile-heading-wrapper p {
+  font-weight: 400;
+  font-size: 1rem;
+}
+/*Edit Profile Form*/
+.edit-form-wrapper {
   
- /*PAGE LAYOUT*/
+}
+.edit-form {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 0.6rem;
+  max-width: 900px;
+}
+.form-group-wrapper {
+  margin-bottom: 0.6rem;
+}
+.edit-form .flex-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.edit-form textarea {
+  height: 80px;
+  width: 100% !important;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  outline: none;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  resize: none;
+}
+.form-group textarea {
+  height: 80px;
+  width: 100% !important;
+  border: 1.5px solid var(--border);
+  border-radius: 0.5rem;
+  outline: none;
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  resize: none;
+}
+.form-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 1rem 0;
+}
+.form-buttons button {
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--primary);
+  border-radius: 0.6rem;
+  width: 150px;
+}
+.cancel-changes-btn {
+  border: 1.5px solid var(--primary2);
+  color: var(--primary2);
+  background-color: transparent;
+}
+.submit-changes-btn {
+  background-color: var(--primary);
+  color: #fff;
+}
+.submit-changes-btn:hover {
+  background-color: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+}
+/*edit form logo*/
+.edit-form-logo-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.edit-form-logo-wrapper h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+.edit-form-logo-wrapper p {
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.edit-form-logo-wrapper div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.edit-form-logo-img {
+  width: 100px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 0.6rem;
+  border: 1.5px solid var(--border);
+}
+.edit-form-logo-buttons-wrapper {
+  display: none;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+.edit-form-logo-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.edit-form-logo-buttons-wrapper p {
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+}
+.change-logo-btn {
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 0.5rem;
+}
+.remove-logo-btn {
+  border: 1.5px solid var(--dark);
+  color: var(--dark);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 0.5rem;
+}
+  
+ /*BODY PAGE LAYOUT*/
 .page-layout {
   min-height: 100vh;
   display: flex;
@@ -1495,7 +1789,7 @@ footer {
 
   /*HEADER*/
   .header {
-    padding: 0.5rem 0;
+    padding: 0.5rem 1rem;
   }
   /*SIDEBAR*/
   .sidebar-container{
@@ -1514,7 +1808,7 @@ footer {
   margin-right: 50px;
 }
 .logo {
-  width: 150px;
+  width: 140px;
 }
 .nav-links {
   display: none;
@@ -1622,7 +1916,9 @@ footer {
 .chip.graduate {
   white-space: wrap;
 }
-
+.opportunity {
+  margin-bottom: -0.5rem;
+}
 /*OPPORTUNITY DETAILS, mobile*/
 .back-btn {
   display: flex;
@@ -1646,7 +1942,7 @@ footer {
   margin-bottom: 1rem;
 }
  .details-company-logo {
-  width: 150px;
+  width: 100px;
   border-radius: 2px;
 }
 .details-company-name {

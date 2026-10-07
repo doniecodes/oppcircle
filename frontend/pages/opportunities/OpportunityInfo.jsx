@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import ArrowRight from '../../images/icons/arrow-right.svg';
 import TimeIcon from '../../images/icons/time.png';
@@ -7,6 +8,7 @@ import LocationIcon from '../../images/icons/location.png';
 import NameIcon from '../../images/icons/name.png';
 import Discovery from '../../images/icons/discovery.jpg';
 import PinIcon from '../../images/icons/pin.png';
+import NoImageCircle from '../../images/no-image-circle.png';
 
 const OpportunityInfo = ({opportunity}) => {
   
@@ -16,6 +18,8 @@ const OpportunityInfo = ({opportunity}) => {
   
   //states
   const [ saved, setSaved ] = useState(false);
+  const [ searchParams, setSearchParams ] = useSearchParams();
+  const prevPath = searchParams.get("backTo");
   
   const formattedDate = new Date(opportunity.closing_date).toLocaleDateString("en-ZA", {
     day: "numeric",
@@ -32,9 +36,17 @@ const OpportunityInfo = ({opportunity}) => {
       formattedType = opportunity.type.charAt(0).toUpperCase() + opportunity.type.slice(1);
   }
   
+  const logoImage = opportunity.logo_url ? opportunity.logo_url : NoImageCircle;
+  
   //handle save
   const handleSave = ()=> {
     setSaved((prev)=> !prev);
+    if(!saved) {
+      toast.success("Opportunity Saved Successfully");
+    }
+    if(saved) {
+      toast.success("removed from saved opportunities");
+    }
   }
   
   return (
@@ -42,19 +54,18 @@ const OpportunityInfo = ({opportunity}) => {
       
       <div className="container">
         
-        <Link to=".."
+        <Link to={prevPath ? "/dashboard/company-profile" : ".."}
         relative="path"
         className="back-btn">
           <img src={ArrowRight} />
-          Back to opportunities
+          Back to {prevPath ? "Company Profile" : "opportunities"}
         </Link>
         
           <div className="details-info-container">
             <div className="details-company-info">
               <img
-              src={opportunity.logo_url}
-              className="details-company-logo"
-              />
+              src={logoImage}
+              className={`details-company-logo ${!opportunity.logo_url && "no-logo"}`} />
               <h2 className="details-company-name">
                 {opportunity.name}
               </h2>

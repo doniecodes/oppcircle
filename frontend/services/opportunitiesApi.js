@@ -1,10 +1,9 @@
 
 const URI = import.meta.env.VITE_PUBLIC_URI;
 const user = JSON.parse(localStorage.getItem("user"));
-const token = user.token;
-console.log(token);
+const token = user ? user.token : null;
 
-//getOpportunities
+//get opportunities
     export const getOpportunities = async (search)=> {
       const urlString = search ? `${URI}/opportunities?${search}`: `${URI}/opportunities`;
       const res = await fetch(urlString);
@@ -47,7 +46,7 @@ console.log(token);
       return data;
     }
     
-  //Get dashboard oppprtunities
+  //Get dashboard opportunities
   export const getDashboardOpportunities = async (search)=> {
     const urlString = search ? `${URI}/dashboard/opportunities?${search}`: `${URI}/dashboard/opportunities`;
     const res = await fetch(urlString, {

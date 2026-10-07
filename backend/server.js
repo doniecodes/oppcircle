@@ -5,6 +5,7 @@ const pool = require("./data/pg");
 const opportunitiesRoutes = require("./routes/opportunitiesRoutes");
 const userRoutes = require("./routes/userRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const companyRoutes = require("./routes/companyRoutes");
 
 const app = express();
 
@@ -35,3 +36,6 @@ app.use("/api/user", userRoutes);
 
 //dashboard routes
 app.use("/api/dashboard", dashboardRoutes);
+
+//company routes
+app.use("/api/companies", companyRoutes);

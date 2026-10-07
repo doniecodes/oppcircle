@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link, useActionData, useLoaderData, Form, redirect } from "react-router-dom";
 import { createUserPersonal, createUserOrganization } from "../services/userApi";
 import { getLocations, getIndustries } from "../services/opportunitiesApi";
@@ -42,6 +43,7 @@ export const action = async({request})=> {
         return redirect("/dashboard");
       }
       localStorage.setItem("user", JSON.stringify(data));
+      toast.success("Signed up successfully");
     } catch (error) {
       return { error: error.message };
     }

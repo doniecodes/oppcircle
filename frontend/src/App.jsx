@@ -1,4 +1,6 @@
 import React from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import { Route, createBrowserRouter,
   createRoutesFromElements, RouterProvider
@@ -19,10 +21,13 @@ import OpportunityCompany from '../pages/opportunities/OpportunityCompany';
 import DashboardLayout from '../components//DashboardLayout';
 import Dashboard from '../pages/dashboard/Dashboard';
 import DashboardOpportunities, { loader as dashboardOpportunitiesLoader } from '../pages/dashboard/Opportunities';
-import CompanyProfile from '../pages/dashboard/CompanyProfile';
 import Analytics from '../pages/dashboard/Analytics';
 import Settings from '../pages/dashboard/Settings';
 import CreateOpportunity, { loader as createOpportunityLoader, action as createOpportunityAction } from '../pages/dashboard/CreateOpportunity';
+import CompanyProfileLayout, { loader as companyProfileLoader } from '../components/CompanyProfileLayout';
+import CompanyProfileOpportunities from '../pages/companyprofile/CompanyProfileOpportunities';
+import CompanyProfileAbout from '../pages/companyprofile/CompanyProfileAbout';
+import EditCompanyProfile from '../pages/companyprofile/EditCompanyProfile';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,9 +73,18 @@ const router = createBrowserRouter(
         errorElement={<RouteError/>}/>
       
         <Route path="company-profile"
-        element={<CompanyProfile />} />
+        element={<CompanyProfileLayout />}
+        loader={companyProfileLoader}>
+          <Route index element={<CompanyProfileOpportunities/>}/>
+          <Route path="about" element={<CompanyProfileAbout/>}/>
+        </Route>
+        
+        <Route path="company-profile/edit"
+        element={<EditCompanyProfile/>}/>
+        
         <Route path="analytics"
         element={<Analytics />} />
+        
         <Route path="settings"
         element={<Settings />} />
       </Route>
@@ -93,7 +107,10 @@ const router = createBrowserRouter(
 
 const App = () => {
   return (
+    <>
+    <ToastContainer position="top-right" />
     <RouterProvider router={router} />
+    </>
   )
 }
 
